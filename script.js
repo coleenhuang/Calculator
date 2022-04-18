@@ -1,0 +1,6 @@
+let equation;
+
+
+function equation() {
+
+}
