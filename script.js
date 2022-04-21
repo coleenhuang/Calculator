@@ -2,6 +2,7 @@ let firstNum = 0
 let secondNum= null
 let operator= null
 let evaluated= false
+let solution = null
 
 
 const calculatorButtons= document.querySelector('.button-container')
@@ -13,14 +14,14 @@ function getNumber() {
         let buttonType = event.target.dataset.type
         let valueEntered = event.target.value.toString()
          switch(buttonType) {
-             /*TODO: case 'evaluate':
-                 if(evaluated || !secondNum || operator ) {
-                     displaySolution()
+             case 'evaluate':
+                console.log(secondNum && operator)
+                 if(firstNum && secondNum && operator) {
+                     evaluated = true
+                     solution = operate(operator, firstNum, secondNum)
+                     updateInputScreen()
                  }
-                 else {
-                     Do the calculation
-                 }
-             */  
+                 break  
             case 'number':
                 if (!operator){
                    firstNum = appendNumber(firstNum, valueEntered)  
@@ -56,8 +57,17 @@ function appendNumber(number, newDigit) {
     return number == 0 || !number ? number = newDigit : number += newDigit
 }
 
-function operate(operator, a, b) {
-    
+function operate(sign, a, b) {
+    switch(sign) {
+        case '+':
+            return add(a,b)
+        case '-':
+            return subtract(a, b)
+        case '×':
+            return multiply(a, b)
+        case "÷":
+            return divide(a,b)
+    }
 }
 
 function add(a, b) {
@@ -79,12 +89,17 @@ function divide(a, b) {
 
 
 function updateInputScreen() {
-    if (!secondNum && !operator) {
+    if(evaluated) {
+        inputDisplay.innerHTML = solution
+    }
+    else if (!secondNum && !operator) {
         inputDisplay.innerHTML = firstNum
     }
     else if (operator) {
         displayEquation()
+        secondNum?inputDisplay.innerHTML = secondNum:inputDisplay.innerHTML = firstNum
     }
+    
     
 }
 function displayEquation() {
