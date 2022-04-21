@@ -22,10 +22,11 @@ function getNumber() {
                  }
              */  
             case 'number':
-            
                 if (!operator){
-                   firstNum = appendNumber(firstNum, valueEntered)
-                   
+                   firstNum = appendNumber(firstNum, valueEntered)  
+                }
+                else {
+                    secondNum = appendNumber(secondNum, valueEntered)  
                 }
                 updateInputScreen()
                 break;
@@ -52,11 +53,10 @@ function getNumber() {
 }
 
 function appendNumber(number, newDigit) {
-    console.log(number == 0 )
-    return number == 0 ? number = newDigit : number += newDigit
+    return number == 0 || !number ? number = newDigit : number += newDigit
 }
 
-function evaluate() {
+function operate(a, b) {
     
 }
 
