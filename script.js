@@ -14,19 +14,13 @@ function getNumber() {
         let buttonType = event.target.dataset.type
         let valueEntered = event.target.value.toString()
          switch(buttonType) {
-             case 'evaluate':
-                console.log(secondNum && operator)
-                 if(firstNum && secondNum && operator) {
-                     evaluated = true
-                     solution = operate(operator, firstNum, secondNum)
-                     updateInputScreen()
-                 }
-                 break  
             case 'number':
                 if (!operator){
+                    //Adds digits to first number if operator has not been pressed
                    firstNum = appendNumber(firstNum, valueEntered)  
                 }
                 else {
+                    //Adds digits to second number after operator has been pressed
                     secondNum = appendNumber(secondNum, valueEntered)  
                 }
                 updateInputScreen()
@@ -36,19 +30,27 @@ function getNumber() {
                     operator = valueEntered
                     updateInputScreen()
                 }
+                //TODO: Make it so that you can chain equations
                 break;
-         }
-        //sort the buttons by type number, operator or eval
-        /*if (!state.firstNum) {
-            state.firstNum = event.target.value.toString()
-            displayEquation(state.firstNum)
-        }
-        else {
-            if (!state.operator) {
-                state.firstNum == 0 ? state.firstNum = event.target.value.toString() : state.firstNum +=event.target.value.toString()
-                displayEquation(state.firstNum)
-            }
-        }*/
+            case 'evaluate':
+                if(firstNum && secondNum && operator) {
+                    evaluated = true
+                    solution = operate(operator, firstNum, secondNum)
+                    updateInputScreen()
+                }
+                break;
+
+            //TODO: case backspace
+            case 'reset':
+                firstNum = 0
+                secondNum= null
+                operator= null
+                evaluated= false
+                solution = null
+                updateInputScreen()
+                resetEquation()
+                break;
+         }  
         
     })
 }
@@ -104,6 +106,10 @@ function updateInputScreen() {
 }
 function displayEquation() {
     equationDisplay.innerHTML = `${firstNum}${operator}${secondNum?secondNum:''}`
+}
+
+function resetEquation() {
+    equationDisplay.innerHTML = ''
 }
 
 getNumber()
