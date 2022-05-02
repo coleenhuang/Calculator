@@ -14,14 +14,14 @@ function getNumber() {
         let buttonType = event.target.dataset.type
         let valueEntered = event.target.value.toString()
          switch(buttonType) {
-            case 'number':
+            case 'number':   
                 if (!operator){
                     //Adds digits to first number if operator has not been pressed
                    firstNum = appendNumber(firstNum, valueEntered)  
                 }
                 else {
                     //Adds digits to second number after operator has been pressed
-                    secondNum = appendNumber(secondNum, valueEntered)  
+                    secondNum = appendNumber(secondNum, valueEntered)
                 }
                 updateInputScreen()
                 break;
@@ -31,7 +31,6 @@ function getNumber() {
                     updateInputScreen()
                 }
                 if (operator && secondNum) {
-                    //TODO: fix the bug the operates the second operator instead of the first
                     firstNum = operate(operator, firstNum, secondNum);
                     console.log(firstNum)
                     operator = valueEntered
@@ -46,6 +45,22 @@ function getNumber() {
                     solution = operate(operator, firstNum, secondNum)
                     updateInputScreen()
                 }
+                break;
+
+            case 'dot':
+                if (!operator){
+                    //Adds digits to first number if operator has not been pressed
+                   if (!checkDot(firstNum)){
+                       firstNum = appendNumber(firstNum, valueEntered)
+                   }  
+                }
+                else {
+                    //Adds digits to second number after operator has been pressed
+                    if (!checkDot(secondNum)){
+                        secondNum = appendNumber(secondNum, valueEntered)
+                    }     
+                }
+                updateInputScreen()
                 break;
 
             //TODO: case backspace
@@ -64,7 +79,7 @@ function getNumber() {
 }
 
 function appendNumber(number, newDigit) {
-    return number == 0 || !number ? number = newDigit : number += newDigit
+    return number == 0 || !number ? newDigit : number + newDigit
 }
 
 function operate(sign, a, b) {
@@ -94,6 +109,10 @@ function multiply(a, b) {
 
 function divide(a, b) {
     return a / b
+}
+
+function checkDot(numberArray){
+    return numberArray.includes('.')
 }
 
 
