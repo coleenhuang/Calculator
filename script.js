@@ -26,15 +26,17 @@ function getNumber() {
                 updateInputScreen()
                 break;
             case 'operator':
-                if (firstNum) {
+                if (firstNum && !secondNum) {
                     operator = valueEntered
                     updateInputScreen()
                 }
-                if (firstNum && secondNum) {
-                    //TODO: Make it so that you can chain equations
+                if (operator && secondNum) {
+                    //TODO: fix the bug the operates the second operator instead of the first
                     firstNum = operate(operator, firstNum, secondNum);
+                    console.log(firstNum)
                     operator = valueEntered
                     secondNum = null
+                    updateInputScreen()
                 }
                 
                 break;
