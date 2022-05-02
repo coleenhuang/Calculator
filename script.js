@@ -30,7 +30,13 @@ function getNumber() {
                     operator = valueEntered
                     updateInputScreen()
                 }
-                //TODO: Make it so that you can chain equations
+                if (firstNum && secondNum) {
+                    //TODO: Make it so that you can chain equations
+                    firstNum = operate(operator, firstNum, secondNum);
+                    operator = valueEntered
+                    secondNum = null
+                }
+                
                 break;
             case 'evaluate':
                 if(firstNum && secondNum && operator) {
