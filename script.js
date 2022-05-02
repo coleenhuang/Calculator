@@ -17,7 +17,8 @@ function getNumber() {
             case 'number':   
                 if (!operator){
                     //Adds digits to first number if operator has not been pressed
-                   firstNum = appendNumber(firstNum, valueEntered)  
+                   firstNum = appendNumber(firstNum, valueEntered)
+                   console.log(firstNum)
                 }
                 else {
                     //Adds digits to second number after operator has been pressed
@@ -63,7 +64,17 @@ function getNumber() {
                 updateInputScreen()
                 break;
 
-            //TODO: case backspace
+            case 'delete':
+                if(!operator) {
+                    firstNum = firstNum.slice(0, -1);
+                    updateInputScreen()
+                }
+                else if (secondNum) {
+                    secondNum = secondNum.slice(0, -1)
+                    updateInputScreen()
+                }
+                break;
+
             case 'reset':
                 firstNum = 0
                 secondNum= null
